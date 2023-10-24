@@ -1,0 +1,458 @@
+openapi: 3.0.0
+
+info:
+  title: "API Layanan Akademik"
+  version: "1.0"
+  description: "Pembuatan API Layanan Akademik untuk Fakultas Ilmu Komputer Universitas Pembangunan Nasional Veteran Jakarta demi memenuhi keperluan Projek UAS mata kuliah Pembangunan Perangkat Lunak Berorientasi Service tahun 2023"
+
+paths:
+  /mahasiswa:
+    get:
+      summary: Get All Mahasiswa
+      responses:
+        200:
+          description: Retrieve all Mahasiswa
+    post:
+      summary: Create a new Mahasiswa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mahasiswa'
+      responses:
+        201:
+          description: Mahasiswa created successfully
+
+  /mahasiswa/{id}:
+    get:
+      summary: Get a Mahasiswa by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Retrieve a Mahasiswa by ID
+        404:
+          description: Mahasiswa not found
+    put:
+      summary: Update a Mahasiswa by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mahasiswa'
+      responses:
+        200:
+          description: Mahasiswa updated successfully
+        404:
+          description: Mahasiswa not found
+    delete:
+      summary: Delete a Mahasiswa by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Mahasiswa deleted successfully
+        404:
+          description: Mahasiswa not found
+
+  /dosen:
+    get:
+      summary: Get All Dosen
+      responses:
+        200:
+          description: Retrieve all Dosen
+    post:
+      summary: Create a new Dosen
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dosen'
+      responses:
+        201:
+          description: Dosen created successfully
+
+  /dosen/{id}:
+    get:
+      summary: Get a Dosen by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Retrieve a Dosen by ID
+        404:
+          description: Dosen not found
+    put:
+      summary: Update a Dosen by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dosen'
+      responses:
+        200:
+          description: Dosen updated successfully
+        404:
+          description: Dosen not found
+    delete:
+      summary: Delete a Dosen by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Dosen deleted successfully
+        404:
+          description: Dosen not found
+
+  /skripsi:
+    get:
+      summary: Get All Skripsi
+      responses:
+        200:
+          description: Retrieve all Skripsi
+    post:
+      summary: Create a new Skripsi
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skripsi'
+      responses:
+        201:
+          description: Skripsi created successfully
+
+  /skripsi/{id}:
+    get:
+      summary: Get a Skripsi by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Retrieve a Skripsi by ID
+        404:
+          description: Skripsi not found
+    put:
+      summary: Update a Skripsi by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skripsi'
+      responses:
+        200:
+          description: Skripsi updated successfully
+        404:
+          description: Skripsi not found
+    delete:
+      summary: Delete a Skripsi by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Skripsi deleted successfully
+        404:
+          description: Skripsi not found
+
+  /fasilitas:
+    get:
+      summary: Get All Fasilitas
+      responses:
+        200:
+          description: Retrieve all Fasilitas
+    post:
+      summary: Create a new Fasilitas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Fasilitas'
+      responses:
+        201:
+          description: Fasilitas created successfully
+
+  /fasilitas/{id}:
+    get:
+      summary: Get a Fasilitas by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Retrieve a Fasilitas by ID
+        404:
+          description: Fasilitas not found
+    put:
+      summary: Update a Fasilitas by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Fasilitas'
+      responses:
+        200:
+          description: Fasilitas updated successfully
+        404:
+          description: Fasilitas not found
+    delete:
+      summary: Delete a Fasilitas by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Fasilitas deleted successfully
+        404:
+          description: Fasilitas not found
+  /peminjaman_fasilitas:
+    get:
+      summary: Get All Peminjaman Fasilitas
+      responses:
+        200:
+          description: Retrieve all Peminjaman Fasilitas
+    post:
+      summary: Create a new Peminjaman Fasilitas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PeminjamanFasilitas'
+      responses:
+        201:
+          description: Peminjaman Fasilitas created successfully
+  
+  /peminjaman_fasilitas/{id}:
+    get:
+      summary: Get a Peminjaman Fasilitas by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Retrieve a Peminjaman Fasilitas by ID
+        404:
+          description: Peminjaman Fasilitas not found
+    put:
+      summary: Update a Peminjaman Fasilitas by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PeminjamanFasilitas'
+      responses:
+        200:
+          description: Peminjaman Fasilitas updated successfully
+        404:
+          description: Peminjaman Fasilitas not found
+          
+  /pengajuan_skripsi:
+    get:
+      summary: Get All Pengajuan Skripsi
+      responses:
+        200:
+          description: Retrieve all Pengajuan Skripsi
+    post:
+      summary: Create a new Pengajuan Skripsi
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PengajuanSkripsi'
+      responses:
+        201:
+          description: Pengajuan Skripsi created successfully
+
+  /pengajuan_skripsi/{id}:
+    get:
+      summary: Get a Pengajuan Skripsi by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Retrieve a Pengajuan Skripsi by ID
+        404:
+          description: Pengajuan Skripsi not found
+    put:
+      summary: Update a Pengajuan Skripsi by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PengajuanSkripsi'
+      responses:
+        200:
+          description: Pengajuan Skripsi updated successfully
+        404:
+          description: Pengajuan Skripsi not found
+
+components:
+  schemas:
+    Mahasiswa:
+      type: object
+      properties:
+        id_mahasiswa:
+          type: integer
+        nama_mahasiswa:
+          type: string
+        nim:
+          type: string
+        email:
+          type: string
+        fakultas:
+          type: string
+        jurusan:
+          type: string
+        angkatan:
+          type: integer
+
+    Dosen:
+      type: object
+      properties:
+        id_dosen:
+          type: integer
+        nama_dosen:
+          type: string
+        nidn:
+          type: string
+        email:
+          type: string
+        fakultas:
+          type: string
+
+    Skripsi:
+      type: object
+      properties:
+        id_skripsi:
+          type: integer
+        id_mahasiswa:
+          type: integer
+        id_dosen:
+          type: integer
+        judul_skripsi:
+          type: string
+        status_skripsi:
+          type: string
+
+    Fasilitas:
+      type: object
+      properties:
+        id_fasilitas:
+          type: integer
+        nama_fasilitas:
+          type: string
+        deskripsi_fasilitas:
+          type: string
+        kapasitas_fasilitas:
+          type: integer
+        status_fasilitas:
+          type: string
+
+    PengajuanSkripsi:
+      type: object
+      properties:
+        id_pengajuan:
+          type: integer
+        id_skripsi:
+          type: integer
+        status_pengajuan:
+          type: string
+          
+    PeminjamanFasilitas:
+      type: object
+      properties:
+        id_peminjaman:
+          type: integer
+        id_mahasiswa:
+          type: integer
+        id_fasilitas:
+          type: integer
+        tanggal_peminjaman:
+          type: string
+        tanggal_pengembalian:
+          type: string
+        status_peminjaman:
+          type: string
