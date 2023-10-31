@@ -1,19 +1,45 @@
-openapi: 3.0.0
-
+openapi: 3.0.3
 info:
   title: "API Layanan Akademik"
   version: "1.0"
-  description: "Pembuatan API Layanan Akademik untuk Fakultas Ilmu Komputer Universitas Pembangunan Nasional Veteran Jakarta demi memenuhi keperluan Projek UAS mata kuliah Pembangunan Perangkat Lunak Berorientasi Service tahun 2023"
+  description: |-
+    Pembuatan API Layanan Akademik untuk Fakultas Ilmu Komputer Universitas Pembangunan Nasional Veteran Jakarta demi memenuhi keperluan Projek UAS mata kuliah Pembangunan Perangkat Lunak Berorientasi Service tahun 2023.
+
+tags:
+  - name: Mahasiswa
+    description: Akses data mahasiswa.
+  - name: Dosen
+    description: Akses data dosen.
+  - name: Skripsi
+    description: Akses data skripsi.
+  - name: Fasilitas
+    description: Akses data fasilitas.
+  - name: Pengajuan Skripsi
+    description: Service pengajuan skripsi.
+  - name: Peminjaman Fasilitas
+    description: Service peminjaman fasilitas.
 
 paths:
   /mahasiswa:
     get:
       summary: Get All Mahasiswa
+      description: Retrieve all Mahasiswa's data.
+      operationId: get_all_mahasiswa
       responses:
         200:
-          description: Retrieve all Mahasiswa
+          description: All Mahasiswa successfully retrieved.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mahasiswa'
+      tags:
+        - Mahasiswa
     post:
       summary: Create a new Mahasiswa
+      description: Create a new Mahasiswa data
+      operationId: add_mahasiswa
       requestBody:
         required: true
         content:
@@ -23,10 +49,18 @@ paths:
       responses:
         201:
           description: Mahasiswa created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mahasiswa'
+      tags:
+        - Mahasiswa
 
   /mahasiswa/{id}:
     get:
       summary: Get a Mahasiswa by ID
+      description: Retrieve a Mahasiswa by ID
+      operationId: get_mahasiswa
       parameters:
         - name: id
           in: path
@@ -36,8 +70,12 @@ paths:
       responses:
         200:
           description: Retrieve a Mahasiswa by ID
-        404:
-          description: Mahasiswa not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mahasiswa'
+      tags:
+        - Mahasiswa
     put:
       summary: Update a Mahasiswa by ID
       parameters:
@@ -57,6 +95,8 @@ paths:
           description: Mahasiswa updated successfully
         404:
           description: Mahasiswa not found
+      tags:
+        - Mahasiswa
     delete:
       summary: Delete a Mahasiswa by ID
       parameters:
@@ -70,6 +110,8 @@ paths:
           description: Mahasiswa deleted successfully
         404:
           description: Mahasiswa not found
+      tags:
+        - Mahasiswa
 
   /dosen:
     get:
@@ -77,6 +119,8 @@ paths:
       responses:
         200:
           description: Retrieve all Dosen
+      tags:
+        - Dosen
     post:
       summary: Create a new Dosen
       requestBody:
@@ -88,6 +132,8 @@ paths:
       responses:
         201:
           description: Dosen created successfully
+      tags:
+        - Dosen
 
   /dosen/{id}:
     get:
@@ -101,8 +147,8 @@ paths:
       responses:
         200:
           description: Retrieve a Dosen by ID
-        404:
-          description: Dosen not found
+      tags:
+        - Dosen
     put:
       summary: Update a Dosen by ID
       parameters:
@@ -122,6 +168,8 @@ paths:
           description: Dosen updated successfully
         404:
           description: Dosen not found
+      tags:
+        - Dosen
     delete:
       summary: Delete a Dosen by ID
       parameters:
@@ -135,6 +183,8 @@ paths:
           description: Dosen deleted successfully
         404:
           description: Dosen not found
+      tags:
+        - Dosen
 
   /skripsi:
     get:
@@ -142,6 +192,8 @@ paths:
       responses:
         200:
           description: Retrieve all Skripsi
+      tags:
+        - Skripsi
     post:
       summary: Create a new Skripsi
       requestBody:
@@ -153,6 +205,8 @@ paths:
       responses:
         201:
           description: Skripsi created successfully
+      tags:
+        - Skripsi
 
   /skripsi/{id}:
     get:
@@ -166,8 +220,8 @@ paths:
       responses:
         200:
           description: Retrieve a Skripsi by ID
-        404:
-          description: Skripsi not found
+      tags:
+        - Skripsi
     put:
       summary: Update a Skripsi by ID
       parameters:
@@ -187,6 +241,8 @@ paths:
           description: Skripsi updated successfully
         404:
           description: Skripsi not found
+      tags:
+        - Skripsi
     delete:
       summary: Delete a Skripsi by ID
       parameters:
@@ -200,6 +256,8 @@ paths:
           description: Skripsi deleted successfully
         404:
           description: Skripsi not found
+      tags:
+        - Skripsi
 
   /fasilitas:
     get:
@@ -207,6 +265,8 @@ paths:
       responses:
         200:
           description: Retrieve all Fasilitas
+      tags:
+        - Fasilitas
     post:
       summary: Create a new Fasilitas
       requestBody:
@@ -218,6 +278,8 @@ paths:
       responses:
         201:
           description: Fasilitas created successfully
+      tags:
+        - Fasilitas
 
   /fasilitas/{id}:
     get:
@@ -231,8 +293,8 @@ paths:
       responses:
         200:
           description: Retrieve a Fasilitas by ID
-        404:
-          description: Fasilitas not found
+      tags:
+        - Fasilitas
     put:
       summary: Update a Fasilitas by ID
       parameters:
@@ -252,6 +314,8 @@ paths:
           description: Fasilitas updated successfully
         404:
           description: Fasilitas not found
+      tags:
+        - Fasilitas
     delete:
       summary: Delete a Fasilitas by ID
       parameters:
@@ -265,12 +329,17 @@ paths:
           description: Fasilitas deleted successfully
         404:
           description: Fasilitas not found
+      tags:
+        - Fasilitas
+
   /peminjaman_fasilitas:
     get:
       summary: Get All Peminjaman Fasilitas
       responses:
         200:
           description: Retrieve all Peminjaman Fasilitas
+      tags:
+        - Peminjaman Fasilitas
     post:
       summary: Create a new Peminjaman Fasilitas
       requestBody:
@@ -282,6 +351,8 @@ paths:
       responses:
         201:
           description: Peminjaman Fasilitas created successfully
+      tags:
+        - Peminjaman Fasilitas
   
   /peminjaman_fasilitas/{id}:
     get:
@@ -295,8 +366,8 @@ paths:
       responses:
         200:
           description: Retrieve a Peminjaman Fasilitas by ID
-        404:
-          description: Peminjaman Fasilitas not found
+      tags:
+        - Peminjaman Fasilitas
     put:
       summary: Update a Peminjaman Fasilitas by ID
       parameters:
@@ -316,6 +387,8 @@ paths:
           description: Peminjaman Fasilitas updated successfully
         404:
           description: Peminjaman Fasilitas not found
+      tags:
+        - Peminjaman Fasilitas
           
   /pengajuan_skripsi:
     get:
@@ -323,6 +396,8 @@ paths:
       responses:
         200:
           description: Retrieve all Pengajuan Skripsi
+      tags:
+        - Pengajuan Skripsi
     post:
       summary: Create a new Pengajuan Skripsi
       requestBody:
@@ -334,6 +409,8 @@ paths:
       responses:
         201:
           description: Pengajuan Skripsi created successfully
+      tags:
+        - Pengajuan Skripsi
 
   /pengajuan_skripsi/{id}:
     get:
@@ -347,8 +424,8 @@ paths:
       responses:
         200:
           description: Retrieve a Pengajuan Skripsi by ID
-        404:
-          description: Pengajuan Skripsi not found
+      tags:
+        - Pengajuan Skripsi
     put:
       summary: Update a Pengajuan Skripsi by ID
       parameters:
@@ -368,6 +445,8 @@ paths:
           description: Pengajuan Skripsi updated successfully
         404:
           description: Pengajuan Skripsi not found
+      tags:
+        - Pengajuan Skripsi
 
 components:
   schemas:
