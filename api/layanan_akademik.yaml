@@ -1,33 +1,36 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: "API Layanan Akademik"
   version: "1.0"
   description: |-
-    Pembuatan API Layanan Akademik untuk Fakultas Ilmu Komputer Universitas Pembangunan Nasional Veteran Jakarta demi memenuhi keperluan Projek UAS mata kuliah Pembangunan Perangkat Lunak Berorientasi Service tahun 2023.
+    Pembuatan API Layanan Akademik untuk Fakultas Ilmu Komputer Universitas Pembangunan Nasional Veteran Jakarta demi memenuhi 
+    keperluan Projek UAS mata kuliah Pembangunan Perangkat Lunak Berorientasi Service tahun 2023.
+
+    Github: [API_Layanan_Akademik](https://github.com/ox1dice/API_Layanan_Akademik)
 
 tags:
   - name: Mahasiswa
-    description: Akses data mahasiswa.
+    description: Akses data mahasiswa
   - name: Dosen
-    description: Akses data dosen.
+    description: Akses data dosen
   - name: Skripsi
-    description: Akses data skripsi.
+    description: Akses data skripsi
   - name: Fasilitas
-    description: Akses data fasilitas.
+    description: Akses data fasilitas
   - name: Pengajuan Skripsi
-    description: Service pengajuan skripsi.
+    description: Service pengajuan skripsi
   - name: Peminjaman Fasilitas
-    description: Service peminjaman fasilitas.
+    description: Service peminjaman fasilitas
 
 paths:
   /mahasiswa:
     get:
       summary: Get All Mahasiswa
-      description: Retrieve all Mahasiswa's data.
+      description: Retrieves all Mahasiswa's data
       operationId: get_all_mahasiswa
       responses:
-        200:
-          description: All Mahasiswa successfully retrieved.
+        '200':
+          description: All Mahasiswa's data has been retrieved successfully
           content:
             application/json:
               schema:
@@ -38,7 +41,7 @@ paths:
         - Mahasiswa
     post:
       summary: Create a new Mahasiswa
-      description: Create a new Mahasiswa data
+      description: Creates a new Mahasiswa data
       operationId: add_mahasiswa
       requestBody:
         required: true
@@ -47,43 +50,54 @@ paths:
             schema:
               $ref: '#/components/schemas/Mahasiswa'
       responses:
-        201:
-          description: Mahasiswa created successfully
+        '201':
+          description: Mahasiswa has been created successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Mahasiswa'
+        '405':
+          description: Invalid input
       tags:
         - Mahasiswa
-
   /mahasiswa/{id}:
     get:
-      summary: Get a Mahasiswa by ID
-      description: Retrieve a Mahasiswa by ID
+      summary: Get Mahasiswa by ID
+      description: Retrieves a single Mahasiswa data by ID
       operationId: get_mahasiswa
       parameters:
-        - name: id
+        - name: id_mahasiswa
           in: path
+          description: ID of Mahasiswa to retrieve
           required: true
           schema:
             type: integer
+            format: int64
       responses:
-        200:
-          description: Retrieve a Mahasiswa by ID
+        '200':
+          description: Mahasiswa has been retrieved successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Mahasiswa'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Mahasiswa not found
       tags:
         - Mahasiswa
     put:
-      summary: Update a Mahasiswa by ID
+      summary: Update Mahasiswa by ID
+      description: Update a single Mahasiswa's data by ID
+      operationId: update_mahasiswa
       parameters:
-        - name: id
+        - name: id_mahasiswa
           in: path
+          description: Mahasiswa's ID to update
           required: true
           schema:
             type: integer
+            format: int64
       requestBody:
         required: true
         content:
@@ -91,38 +105,60 @@ paths:
             schema:
               $ref: '#/components/schemas/Mahasiswa'
       responses:
-        200:
-          description: Mahasiswa updated successfully
-        404:
+        '200':
+          description: Mahasiswa has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mahasiswa'
+        '400':
+          description: Invalid ID supplied
+        '404':
           description: Mahasiswa not found
       tags:
         - Mahasiswa
     delete:
-      summary: Delete a Mahasiswa by ID
+      summary: Delete Mahasiswa by ID
+      description: Deletes a single Mahasiswa by ID
+      operationId: delete_mahasiswa
       parameters:
-        - name: id
+        - name: id_mahasiswa
           in: path
+          description: Mahasiswa's ID to delete
           required: true
           schema:
             type: integer
+            format: int64
       responses:
-        204:
-          description: Mahasiswa deleted successfully
-        404:
+        '204':
+          description: Mahasiswa has been deleted successfully
+        '400':
+          description: Invalid ID supplied
+        '404':
           description: Mahasiswa not found
       tags:
         - Mahasiswa
-
+  
   /dosen:
     get:
       summary: Get All Dosen
+      description: Retrieves all Dosen's data
+      operationId: get_all_dosen
       responses:
-        200:
-          description: Retrieve all Dosen
+        '200':
+          description: All Dosen has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dosen'
       tags:
         - Dosen
     post:
       summary: Create a new Dosen
+      description: Creates a new Dosen data
+      operationId: add_dosen
       requestBody:
         required: true
         content:
@@ -130,33 +166,54 @@ paths:
             schema:
               $ref: '#/components/schemas/Dosen'
       responses:
-        201:
-          description: Dosen created successfully
+        '201':
+          description: Dosen has been created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dosen'
+        '405':
+          description: Invalid input
       tags:
         - Dosen
-
   /dosen/{id}:
     get:
-      summary: Get a Dosen by ID
+      summary: Get Dosen by ID
+      description: Retrieves a single Dosen data by ID
+      operationId: get_dosen
       parameters:
-        - name: id
+        - name: id_dosen
           in: path
+          description: ID of Dosen to retrieve
           required: true
           schema:
             type: integer
+            format: int64
       responses:
-        200:
-          description: Retrieve a Dosen by ID
+        '200':
+          description: Dosen has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dosen'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Dosen not found
       tags:
         - Dosen
     put:
-      summary: Update a Dosen by ID
+      summary: Update Dosen by ID
+      description: Update a single Dosen's data by ID
+      operationId: update_dosen
       parameters:
-        - name: id
+        - name: id_dosen
           in: path
+          description: ID of Dosen to update
           required: true
           schema:
             type: integer
+            format: int64
       requestBody:
         required: true
         content:
@@ -164,38 +221,60 @@ paths:
             schema:
               $ref: '#/components/schemas/Dosen'
       responses:
-        200:
-          description: Dosen updated successfully
-        404:
+        '200':
+          description: Dosen has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dosen'
+        '400':
+          description: Invalid ID supplied
+        '404':
           description: Dosen not found
       tags:
         - Dosen
     delete:
-      summary: Delete a Dosen by ID
+      summary: Delete Dosen by ID
+      description: Deletes a single Dosen by ID
+      operationId: delete_dosen
       parameters:
-        - name: id
+        - name: id_dosen
           in: path
+          description: ID of Dosen to delete
           required: true
           schema:
             type: integer
+            format: int64
       responses:
-        204:
-          description: Dosen deleted successfully
-        404:
+        '204':
+          description: Dosen has been deleted successfully
+        '400':
+          description: Invalid ID supplied
+        '404':
           description: Dosen not found
       tags:
         - Dosen
-
+  
   /skripsi:
     get:
       summary: Get All Skripsi
+      description: Retrieves all Skripsi's data
+      operationId: get_all_skripsi
       responses:
-        200:
-          description: Retrieve all Skripsi
+        '200':
+          description: All Skripsi has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Skripsi'
       tags:
         - Skripsi
     post:
       summary: Create a new Skripsi
+      description: Creates a new Skripsi data
+      operationId: add_skripsi
       requestBody:
         required: true
         content:
@@ -203,33 +282,54 @@ paths:
             schema:
               $ref: '#/components/schemas/Skripsi'
       responses:
-        201:
-          description: Skripsi created successfully
+        '201':
+          description: Skripsi has been created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skripsi'
+        '405':
+          description: Invalid input
       tags:
         - Skripsi
-
   /skripsi/{id}:
     get:
       summary: Get a Skripsi by ID
+      description: Retrieves a single Skripsi data by ID
+      operationId: get_skripsi
       parameters:
-        - name: id
+        - name: id_skripsi
           in: path
+          description: ID of Skripsi to retrieve
           required: true
           schema:
             type: integer
+            format: int64
       responses:
-        200:
-          description: Retrieve a Skripsi by ID
+        '200':
+          description: Skripsi has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skripsi'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Skripsi not found
       tags:
         - Skripsi
     put:
       summary: Update a Skripsi by ID
+      description: Update a single Skripsi's data by ID
+      operationId: update_skripsi
       parameters:
-        - name: id
+        - name: id_skripsi
           in: path
+          description: ID of Skripsi to retrieve
           required: true
           schema:
             type: integer
+            format: int64
       requestBody:
         required: true
         content:
@@ -237,38 +337,60 @@ paths:
             schema:
               $ref: '#/components/schemas/Skripsi'
       responses:
-        200:
-          description: Skripsi updated successfully
-        404:
+        '200':
+          description: Skripsi has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skripsi'
+        '400':
+          description: Invalid ID supplied
+        '404':
           description: Skripsi not found
       tags:
         - Skripsi
     delete:
       summary: Delete a Skripsi by ID
+      description: Deletes a single Skripsi by ID
+      operationId: delete_skripsi
       parameters:
-        - name: id
+        - name: id_skripsi
           in: path
+          description: ID of Skripsi to retrieve
           required: true
           schema:
             type: integer
+            format: int64
       responses:
-        204:
-          description: Skripsi deleted successfully
-        404:
+        '204':
+          description: Skripsi has been deleted successfully
+        '400':
+          description: Invalid ID supplied
+        '404':
           description: Skripsi not found
       tags:
         - Skripsi
-
+  
   /fasilitas:
     get:
       summary: Get All Fasilitas
+      description: Retrieves all Fasilitas's data
+      operationId: get_all_fasilitas
       responses:
-        200:
-          description: Retrieve all Fasilitas
+        '200':
+          description: All Fasilitas has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fasilitas'
       tags:
         - Fasilitas
     post:
       summary: Create a new Fasilitas
+      description: Creates a new Fasilitas data
+      operationId: add_fasilitas
       requestBody:
         required: true
         content:
@@ -276,33 +398,54 @@ paths:
             schema:
               $ref: '#/components/schemas/Fasilitas'
       responses:
-        201:
-          description: Fasilitas created successfully
+        '201':
+          description: Fasilitas has been created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fasilitas'
+        '405':
+          description: Invalid input
       tags:
         - Fasilitas
-
   /fasilitas/{id}:
     get:
       summary: Get a Fasilitas by ID
+      description: Retrieves a single Fasilitas data by ID
+      operationId: get_fasilitas
       parameters:
-        - name: id
+        - name: id_fasilitas
           in: path
+          description: ID of Fasilitas to retrieve
           required: true
           schema:
             type: integer
+            format: int64
       responses:
-        200:
-          description: Retrieve a Fasilitas by ID
+        '200':
+          description: Fasilitas has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fasilitas'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Fasilitas not found
       tags:
         - Fasilitas
     put:
       summary: Update a Fasilitas by ID
+      description: Update a single Fasilitas's data by ID
+      operationId: update_fasilitas
       parameters:
-        - name: id
+        - name: id_fasilitas
           in: path
+          description: ID of Fasilitas to retrieve
           required: true
           schema:
             type: integer
+            format: int64
       requestBody:
         required: true
         content:
@@ -310,38 +453,60 @@ paths:
             schema:
               $ref: '#/components/schemas/Fasilitas'
       responses:
-        200:
-          description: Fasilitas updated successfully
-        404:
+        '200':
+          description: Fasilitas has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fasilitas'
+        '400':
+          description: Invalid ID supplied
+        '404':
           description: Fasilitas not found
       tags:
         - Fasilitas
     delete:
       summary: Delete a Fasilitas by ID
+      description: Deletes a single Fasilitas by ID
+      operationId: delete_fasilitas
       parameters:
-        - name: id
+        - name: id_fasilitas
           in: path
+          description: ID of Fasilitas to retrieve
           required: true
           schema:
             type: integer
+            format: int64
       responses:
-        204:
-          description: Fasilitas deleted successfully
-        404:
+        '204':
+          description: Fasilitas has been deleted successfully
+        '400':
+          description: Invalid ID supplied
+        '404':
           description: Fasilitas not found
       tags:
         - Fasilitas
-
+  
   /peminjaman_fasilitas:
     get:
       summary: Get All Peminjaman Fasilitas
+      description: Retrieves all Peminjaman Fasilitas's data
+      operationId: get_all_peminjaman_fasilitas
       responses:
-        200:
-          description: Retrieve all Peminjaman Fasilitas
+        '200':
+          description: All Peminjaman Fasilitas has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PeminjamanFasilitas'
       tags:
         - Peminjaman Fasilitas
     post:
       summary: Create a new Peminjaman Fasilitas
+      description: Creates a new Peminjaman Fasilitas data
+      operationId: add_peminjaman_fasilitas
       requestBody:
         required: true
         content:
@@ -349,33 +514,50 @@ paths:
             schema:
               $ref: '#/components/schemas/PeminjamanFasilitas'
       responses:
-        201:
-          description: Peminjaman Fasilitas created successfully
+        '201':
+          description: Peminjaman Fasilitas has been created successfully
+        '405':
+          description: Invalid input
       tags:
         - Peminjaman Fasilitas
-  
   /peminjaman_fasilitas/{id}:
     get:
       summary: Get a Peminjaman Fasilitas by ID
+      description: Retrieves a single Peminjaman Fasilitas data by ID
+      operationId: get_peminjaman_fasilitas
       parameters:
-        - name: id
+        - name: id_peminjaman
           in: path
+          description: ID of Peminjaman Fasilitas to retrieve
           required: true
           schema:
             type: integer
+            format: int64
       responses:
-        200:
-          description: Retrieve a Peminjaman Fasilitas by ID
+        '200':
+          description: Peminjaman Fasilitas has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeminjamanFasilitas'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Peminjaman Fasilitas not found
       tags:
         - Peminjaman Fasilitas
     put:
       summary: Update a Peminjaman Fasilitas by ID
+      description: Update a single Peminjaman Fasilitas's data by ID
+      operationId: update_peminjaman_fasilitas
       parameters:
-        - name: id
+        - name: id_peminjaman
           in: path
+          description: ID of Peminjaman Fasilitas to update
           required: true
           schema:
             type: integer
+            format: int64
       requestBody:
         required: true
         content:
@@ -383,23 +565,39 @@ paths:
             schema:
               $ref: '#/components/schemas/PeminjamanFasilitas'
       responses:
-        200:
-          description: Peminjaman Fasilitas updated successfully
-        404:
+        '200':
+          description: Peminjaman Fasilitas has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeminjamanFasilitas'
+        '400':
+          description: Invalid ID supplied
+        '404':
           description: Peminjaman Fasilitas not found
       tags:
         - Peminjaman Fasilitas
-          
+  
   /pengajuan_skripsi:
     get:
       summary: Get All Pengajuan Skripsi
+      description: Retrieves all Pengajuan Skripsi's data
+      operationId: get_all_pengajuan_skripsi
       responses:
-        200:
-          description: Retrieve all Pengajuan Skripsi
+        '200':
+          description: All Pengajuan Skripsi has been retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PengajuanSkripsi'
       tags:
         - Pengajuan Skripsi
     post:
       summary: Create a new Pengajuan Skripsi
+      description: Creates a new Pengajuan Skripsi data
+      operationId: add_pengajuan_skripsi
       requestBody:
         required: true
         content:
@@ -407,33 +605,50 @@ paths:
             schema:
               $ref: '#/components/schemas/PengajuanSkripsi'
       responses:
-        201:
-          description: Pengajuan Skripsi created successfully
+        '201':
+          description: Pengajuan Skripsi has been created successfully
+        '405':
+          description: Invalid input
       tags:
         - Pengajuan Skripsi
-
   /pengajuan_skripsi/{id}:
     get:
       summary: Get a Pengajuan Skripsi by ID
+      description: Retrieves a single Pengajuan Skripsi data by ID
+      operationId: get_pengajuan_skripsi
       parameters:
-        - name: id
+        - name: id_pengajuan
           in: path
+          description: ID of Pengajuan Skripsi to retrieve
           required: true
           schema:
             type: integer
+            format: int64
       responses:
-        200:
-          description: Retrieve a Pengajuan Skripsi by ID
+        '200':
+          description: Pengajuan Skripsi has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PengajuanSkripsi'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pengajuan Skripsi not found
       tags:
         - Pengajuan Skripsi
     put:
       summary: Update a Pengajuan Skripsi by ID
+      description: Update a single Pengajuan Skripsi's data by ID
+      operationId: update_pengajuan_skripsi
       parameters:
-        - name: id
+        - name: id_pengajuan
           in: path
+          description: ID of Pengajuan Skripsi to update
           required: true
           schema:
             type: integer
+            format: int64
       requestBody:
         required: true
         content:
@@ -441,9 +656,15 @@ paths:
             schema:
               $ref: '#/components/schemas/PengajuanSkripsi'
       responses:
-        200:
-          description: Pengajuan Skripsi updated successfully
-        404:
+        '200':
+          description: Pengajuan Skripsi has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PengajuanSkripsi'
+        '400':
+          description: Invalid ID supplied
+        '404':
           description: Pengajuan Skripsi not found
       tags:
         - Pengajuan Skripsi
@@ -509,16 +730,6 @@ components:
           type: integer
         status_fasilitas:
           type: string
-
-    PengajuanSkripsi:
-      type: object
-      properties:
-        id_pengajuan:
-          type: integer
-        id_skripsi:
-          type: integer
-        status_pengajuan:
-          type: string
           
     PeminjamanFasilitas:
       type: object
@@ -534,4 +745,14 @@ components:
         tanggal_pengembalian:
           type: string
         status_peminjaman:
+          type: string
+
+    PengajuanSkripsi:
+      type: object
+      properties:
+        id_pengajuan:
+          type: integer
+        id_skripsi:
+          type: integer
+        status_pengajuan:
           type: string
