@@ -1,0 +1,790 @@
+openapi: 3.0.3
+info:
+  title: API Layanan Akademik
+  description: "Pembuatan API Layanan Akademik untuk Fakultas Ilmu Komputer Universitas\
+    \ Pembangunan Nasional Veteran Jakarta demi memenuhi \nkeperluan Projek UAS mata\
+    \ kuliah Pembangunan Perangkat Lunak Berorientasi Service tahun 2023.\n\nGithub:\
+    \ [API_Layanan_Akademik](https://github.com/ox1dice/API_Layanan_Akademik)"
+  version: "1.0"
+servers:
+- url: http://localhost:8000/
+tags:
+- name: Mahasiswa
+  description: Akses data mahasiswa
+- name: Dosen
+  description: Akses data dosen
+- name: Skripsi
+  description: Akses data skripsi
+- name: Fasilitas
+  description: Akses data fasilitas
+- name: Pengajuan Skripsi
+  description: Service pengajuan skripsi
+- name: Peminjaman Fasilitas
+  description: Service peminjaman fasilitas
+paths:
+  /mahasiswa:
+    get:
+      tags:
+      - Mahasiswa
+      summary: Get All Mahasiswa
+      description: Retrieves all Mahasiswa's data
+      operationId: get_all_mahasiswa
+      responses:
+        "200":
+          description: All Mahasiswa's data has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Mahasiswa'
+                x-content-type: application/json
+      x-swagger-router-controller: Mahasiswa
+    post:
+      tags:
+      - Mahasiswa
+      summary: Create a new Mahasiswa
+      description: Creates a new Mahasiswa data
+      operationId: add_mahasiswa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mahasiswa'
+        required: true
+      responses:
+        "201":
+          description: Mahasiswa has been created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mahasiswa'
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Mahasiswa
+  /mahasiswa/{id}:
+    get:
+      tags:
+      - Mahasiswa
+      summary: Get Mahasiswa by ID
+      description: Retrieves a single Mahasiswa data by ID
+      operationId: get_mahasiswa
+      parameters:
+      - name: id_mahasiswa
+        in: path
+        description: ID of Mahasiswa to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      responses:
+        "200":
+          description: Mahasiswa has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mahasiswa'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Mahasiswa not found
+      x-swagger-router-controller: Mahasiswa
+    put:
+      tags:
+      - Mahasiswa
+      summary: Update Mahasiswa by ID
+      description: Update a single Mahasiswa's data by ID
+      operationId: update_mahasiswa
+      parameters:
+      - name: id_mahasiswa
+        in: path
+        description: Mahasiswa's ID to update
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mahasiswa'
+        required: true
+      responses:
+        "200":
+          description: Mahasiswa has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mahasiswa'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Mahasiswa not found
+      x-swagger-router-controller: Mahasiswa
+    delete:
+      tags:
+      - Mahasiswa
+      summary: Delete Mahasiswa by ID
+      description: Deletes a single Mahasiswa by ID
+      operationId: delete_mahasiswa
+      parameters:
+      - name: id_mahasiswa
+        in: path
+        description: Mahasiswa's ID to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      responses:
+        "204":
+          description: Mahasiswa has been deleted successfully
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Mahasiswa not found
+      x-swagger-router-controller: Mahasiswa
+  /dosen:
+    get:
+      tags:
+      - Dosen
+      summary: Get All Dosen
+      description: Retrieves all Dosen's data
+      operationId: get_all_dosen
+      responses:
+        "200":
+          description: All Dosen has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Dosen'
+                x-content-type: application/json
+      x-swagger-router-controller: Dosen
+    post:
+      tags:
+      - Dosen
+      summary: Create a new Dosen
+      description: Creates a new Dosen data
+      operationId: add_dosen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dosen'
+        required: true
+      responses:
+        "201":
+          description: Dosen has been created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dosen'
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Dosen
+  /dosen/{id}:
+    get:
+      tags:
+      - Dosen
+      summary: Get Dosen by ID
+      description: Retrieves a single Dosen data by ID
+      operationId: get_dosen
+      parameters:
+      - name: id_dosen
+        in: path
+        description: ID of Dosen to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      responses:
+        "200":
+          description: Dosen has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dosen'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Dosen not found
+      x-swagger-router-controller: Dosen
+    put:
+      tags:
+      - Dosen
+      summary: Update Dosen by ID
+      description: Update a single Dosen's data by ID
+      operationId: update_dosen
+      parameters:
+      - name: id_dosen
+        in: path
+        description: ID of Dosen to update
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dosen'
+        required: true
+      responses:
+        "200":
+          description: Dosen has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dosen'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Dosen not found
+      x-swagger-router-controller: Dosen
+    delete:
+      tags:
+      - Dosen
+      summary: Delete Dosen by ID
+      description: Deletes a single Dosen by ID
+      operationId: delete_dosen
+      parameters:
+      - name: id_dosen
+        in: path
+        description: ID of Dosen to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      responses:
+        "204":
+          description: Dosen has been deleted successfully
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Dosen not found
+      x-swagger-router-controller: Dosen
+  /skripsi:
+    get:
+      tags:
+      - Skripsi
+      summary: Get All Skripsi
+      description: Retrieves all Skripsi's data
+      operationId: get_all_skripsi
+      responses:
+        "200":
+          description: All Skripsi has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Skripsi'
+                x-content-type: application/json
+      x-swagger-router-controller: Skripsi
+    post:
+      tags:
+      - Skripsi
+      summary: Create a new Skripsi
+      description: Creates a new Skripsi data
+      operationId: add_skripsi
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skripsi'
+        required: true
+      responses:
+        "201":
+          description: Skripsi has been created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skripsi'
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Skripsi
+  /skripsi/{id}:
+    get:
+      tags:
+      - Skripsi
+      summary: Get a Skripsi by ID
+      description: Retrieves a single Skripsi data by ID
+      operationId: get_skripsi
+      parameters:
+      - name: id_skripsi
+        in: path
+        description: ID of Skripsi to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      responses:
+        "200":
+          description: Skripsi has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skripsi'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Skripsi not found
+      x-swagger-router-controller: Skripsi
+    put:
+      tags:
+      - Skripsi
+      summary: Update a Skripsi by ID
+      description: Update a single Skripsi's data by ID
+      operationId: update_skripsi
+      parameters:
+      - name: id_skripsi
+        in: path
+        description: ID of Skripsi to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skripsi'
+        required: true
+      responses:
+        "200":
+          description: Skripsi has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skripsi'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Skripsi not found
+      x-swagger-router-controller: Skripsi
+    delete:
+      tags:
+      - Skripsi
+      summary: Delete a Skripsi by ID
+      description: Deletes a single Skripsi by ID
+      operationId: delete_skripsi
+      parameters:
+      - name: id_skripsi
+        in: path
+        description: ID of Skripsi to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      responses:
+        "204":
+          description: Skripsi has been deleted successfully
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Skripsi not found
+      x-swagger-router-controller: Skripsi
+  /fasilitas:
+    get:
+      tags:
+      - Fasilitas
+      summary: Get All Fasilitas
+      description: Retrieves all Fasilitas's data
+      operationId: get_all_fasilitas
+      responses:
+        "200":
+          description: All Fasilitas has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Fasilitas'
+                x-content-type: application/json
+      x-swagger-router-controller: Fasilitas
+    post:
+      tags:
+      - Fasilitas
+      summary: Create a new Fasilitas
+      description: Creates a new Fasilitas data
+      operationId: add_fasilitas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Fasilitas'
+        required: true
+      responses:
+        "201":
+          description: Fasilitas has been created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fasilitas'
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Fasilitas
+  /fasilitas/{id}:
+    get:
+      tags:
+      - Fasilitas
+      summary: Get a Fasilitas by ID
+      description: Retrieves a single Fasilitas data by ID
+      operationId: get_fasilitas
+      parameters:
+      - name: id_fasilitas
+        in: path
+        description: ID of Fasilitas to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      responses:
+        "200":
+          description: Fasilitas has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fasilitas'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Fasilitas not found
+      x-swagger-router-controller: Fasilitas
+    put:
+      tags:
+      - Fasilitas
+      summary: Update a Fasilitas by ID
+      description: Update a single Fasilitas's data by ID
+      operationId: update_fasilitas
+      parameters:
+      - name: id_fasilitas
+        in: path
+        description: ID of Fasilitas to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Fasilitas'
+        required: true
+      responses:
+        "200":
+          description: Fasilitas has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fasilitas'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Fasilitas not found
+      x-swagger-router-controller: Fasilitas
+    delete:
+      tags:
+      - Fasilitas
+      summary: Delete a Fasilitas by ID
+      description: Deletes a single Fasilitas by ID
+      operationId: delete_fasilitas
+      parameters:
+      - name: id_fasilitas
+        in: path
+        description: ID of Fasilitas to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      responses:
+        "204":
+          description: Fasilitas has been deleted successfully
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Fasilitas not found
+      x-swagger-router-controller: Fasilitas
+  /peminjaman_fasilitas:
+    get:
+      tags:
+      - Peminjaman Fasilitas
+      summary: Get All Peminjaman Fasilitas
+      description: Retrieves all Peminjaman Fasilitas's data
+      operationId: get_all_peminjaman_fasilitas
+      responses:
+        "200":
+          description: All Peminjaman Fasilitas has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PeminjamanFasilitas'
+                x-content-type: application/json
+      x-swagger-router-controller: PeminjamanFasilitas
+    post:
+      tags:
+      - Peminjaman Fasilitas
+      summary: Create a new Peminjaman Fasilitas
+      description: Creates a new Peminjaman Fasilitas data
+      operationId: add_peminjaman_fasilitas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PeminjamanFasilitas'
+        required: true
+      responses:
+        "201":
+          description: Peminjaman Fasilitas has been created successfully
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: PeminjamanFasilitas
+  /peminjaman_fasilitas/{id}:
+    get:
+      tags:
+      - Peminjaman Fasilitas
+      summary: Get a Peminjaman Fasilitas by ID
+      description: Retrieves a single Peminjaman Fasilitas data by ID
+      operationId: get_peminjaman_fasilitas
+      parameters:
+      - name: id_peminjaman
+        in: path
+        description: ID of Peminjaman Fasilitas to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      responses:
+        "200":
+          description: Peminjaman Fasilitas has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeminjamanFasilitas'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Peminjaman Fasilitas not found
+      x-swagger-router-controller: PeminjamanFasilitas
+    put:
+      tags:
+      - Peminjaman Fasilitas
+      summary: Update a Peminjaman Fasilitas by ID
+      description: Update a single Peminjaman Fasilitas's data by ID
+      operationId: update_peminjaman_fasilitas
+      parameters:
+      - name: id_peminjaman
+        in: path
+        description: ID of Peminjaman Fasilitas to update
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PeminjamanFasilitas'
+        required: true
+      responses:
+        "200":
+          description: Peminjaman Fasilitas has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeminjamanFasilitas'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Peminjaman Fasilitas not found
+      x-swagger-router-controller: PeminjamanFasilitas
+  /pengajuan_skripsi:
+    get:
+      tags:
+      - Pengajuan Skripsi
+      summary: Get All Pengajuan Skripsi
+      description: Retrieves all Pengajuan Skripsi's data
+      operationId: get_all_pengajuan_skripsi
+      responses:
+        "200":
+          description: All Pengajuan Skripsi has been retrieved successfully.
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PengajuanSkripsi'
+                x-content-type: application/json
+      x-swagger-router-controller: PengajuanSkripsi
+    post:
+      tags:
+      - Pengajuan Skripsi
+      summary: Create a new Pengajuan Skripsi
+      description: Creates a new Pengajuan Skripsi data
+      operationId: add_pengajuan_skripsi
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PengajuanSkripsi'
+        required: true
+      responses:
+        "201":
+          description: Pengajuan Skripsi has been created successfully
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: PengajuanSkripsi
+  /pengajuan_skripsi/{id}:
+    get:
+      tags:
+      - Pengajuan Skripsi
+      summary: Get a Pengajuan Skripsi by ID
+      description: Retrieves a single Pengajuan Skripsi data by ID
+      operationId: get_pengajuan_skripsi
+      parameters:
+      - name: id_pengajuan
+        in: path
+        description: ID of Pengajuan Skripsi to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      responses:
+        "200":
+          description: Pengajuan Skripsi has been retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PengajuanSkripsi'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Pengajuan Skripsi not found
+      x-swagger-router-controller: PengajuanSkripsi
+    put:
+      tags:
+      - Pengajuan Skripsi
+      summary: Update a Pengajuan Skripsi by ID
+      description: Update a single Pengajuan Skripsi's data by ID
+      operationId: update_pengajuan_skripsi
+      parameters:
+      - name: id_pengajuan
+        in: path
+        description: ID of Pengajuan Skripsi to update
+        required: true
+        style: simple
+        explode: false
+        schema:
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PengajuanSkripsi'
+        required: true
+      responses:
+        "200":
+          description: Pengajuan Skripsi has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PengajuanSkripsi'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Pengajuan Skripsi not found
+      x-swagger-router-controller: PengajuanSkripsi
+components:
+  schemas:
+    Mahasiswa:
+      properties:
+        id_mahasiswa: {}
+        nama_mahasiswa: {}
+        nim: {}
+        email: {}
+        fakultas: {}
+        jurusan: {}
+        angkatan: {}
+      example:
+        fakultas: ""
+        nim: ""
+        nama_mahasiswa: ""
+        angkatan: ""
+        jurusan: ""
+        id_mahasiswa: ""
+        email: ""
+    Dosen:
+      properties:
+        id_dosen: {}
+        nama_dosen: {}
+        nidn: {}
+        email: {}
+        fakultas: {}
+      example:
+        id_dosen: ""
+        fakultas: ""
+        nama_dosen: ""
+        nidn: ""
+        email: ""
+    Skripsi:
+      properties:
+        id_skripsi: {}
+        id_mahasiswa: {}
+        id_dosen: {}
+        judul_skripsi: {}
+        status_skripsi: {}
+      example:
+        status_skripsi: ""
+        id_dosen: ""
+        id_skripsi: ""
+        judul_skripsi: ""
+        id_mahasiswa: ""
+    Fasilitas:
+      properties:
+        id_fasilitas: {}
+        nama_fasilitas: {}
+        deskripsi_fasilitas: {}
+        kapasitas_fasilitas: {}
+        status_fasilitas: {}
+      example:
+        nama_fasilitas: ""
+        id_fasilitas: ""
+        status_fasilitas: ""
+        kapasitas_fasilitas: ""
+        deskripsi_fasilitas: ""
+    PeminjamanFasilitas:
+      properties:
+        id_peminjaman: {}
+        id_mahasiswa: {}
+        id_fasilitas: {}
+        tanggal_peminjaman: {}
+        tanggal_pengembalian: {}
+        status_peminjaman: {}
+      example:
+        id_peminjaman: ""
+        id_fasilitas: ""
+        id_mahasiswa: ""
+        status_peminjaman: ""
+        tanggal_pengembalian: ""
+        tanggal_peminjaman: ""
+    PengajuanSkripsi:
+      properties:
+        id_pengajuan: {}
+        id_skripsi: {}
+        status_pengajuan: {}
+      example:
+        id_pengajuan: ""
+        id_skripsi: ""
+        status_pengajuan: ""

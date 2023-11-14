@@ -81,4 +81,4 @@ CREATE TABLE pengajuan_skripsi (
 );
 
 INSERT INTO pengajuan_skripsi (id_skripsi, status_pengajuan) VALUES
-(3, 'Pending');
+(2, 'Pending');

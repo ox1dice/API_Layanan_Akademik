@@ -1,0 +1,20 @@
+{
+  "name": "api-layanan-akademik",
+  "version": "1.0",
+  "description": "Pembuatan API Layanan Akademik untuk Fakultas Ilmu Komputer Universitas Pembangunan Nasional Veteran Jakarta demi memenuhi  keperluan Projek UAS mata kuliah Pembangunan Perangkat Lunak Berorientasi Service tahun 2023.  Github: [API_Layanan_Akademik](https://github.com/ox1dice/API_Layanan_Akademik)",
+  "main": "index.js",
+  "scripts": {
+	"prestart": "npm install",
+	"start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "oas3-tools": "^2.2.3"
+  }
+}
