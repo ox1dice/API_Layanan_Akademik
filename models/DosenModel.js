@@ -43,7 +43,6 @@ const Dosen = sequelize.define('dosen', {
     email: { type: Sequelize.STRING(100), allowNull: false, unique: true },
 }, {
     comment: "This is the table for all dosen",
-    timestamps: true,
     freezeTableName: true,
     tableName: 'dosen',
 });

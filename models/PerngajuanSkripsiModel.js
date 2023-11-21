@@ -17,8 +17,7 @@ const PengajuanSkripsi = sequelize.define('PengajuanSkripsi', {
         allowNull: false
     }
 }, {
-    tableName: 'PengajuanSkripsi', // Nama tabel di database
-    timestamps: false // Untuk menonaktifkan kolom createdAt dan updatedAt
+    tableName: 'PengajuanSkripsi',
 });
 
 module.exports = PengajuanSkripsi;

@@ -11,8 +11,6 @@ const Skripsi = sequelize.define('skripsi', {
     id_mahasiswa: { type: DataTypes.INTEGER }
 }, {
     tableName: 'skripsi',
-    timestamps: false // Jika tidak ada kolom timestamp di tabel database
-    // timestamps: true, // Jika ada kolom timestamp di tabel database
 });
 
 module.exports = Skripsi;

@@ -10,7 +10,6 @@ const Fasilitas = sequelize.define('Fasilitas', {
 }, {
     tableName: 'fasilitas',
     underscored: true,
-    timestamps: true
 });
 
 module.exports = Fasilitas;

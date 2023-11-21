@@ -10,7 +10,6 @@ const PeminjamanFasilitas = sequelize.define('peminjaman_fasilitas', {
     tanggal_peminjaman: { type: Sequelize.DATE },
 }, {
     comment: "This is the table for peminjaman fasilitas",
-    timestamps: true,
     freezeTableName: true,
     tableName: 'peminjaman_fasilitas',
 });
