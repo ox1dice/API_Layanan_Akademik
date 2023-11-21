@@ -1,108 +1,57 @@
-'use strict';
+const Skripsi = require('../models/SkripsiModel');
 
+module.exports = {
+    createSkripsi: async (skripsiData) => {
+        try {
+            const createdSkripsi = await Skripsi.create(skripsiData);
+            return { success: true, result: createdSkripsi };
+        } catch (error) {
+            return { success: false, result: error.message };
+        }
+    },
 
-/**
- * Create a new Skripsi
- * Creates a new Skripsi data
- *
- * body Skripsi 
- * returns Skripsi
- **/
-exports.add_skripsi = function(body) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "status_skripsi" : "",
-  "id_dosen" : "",
-  "id_skripsi" : "",
-  "judul_skripsi" : "",
-  "id_mahasiswa" : ""
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    findSkripsiById: async (id) => {
+        try {
+            const foundSkripsi = await Skripsi.findByPk(id);
+            if (!foundSkripsi) {
+                return { success: false, result: 'Skripsi not found' };
+            }
+            return { success: true, result: foundSkripsi };
+        } catch (error) {
+            return { success: false, result: error.message };
+        }
+    },
+
+    updateSkripsiById: async (id, skripsiData) => {
+        try {
+            const [updatedRowsCount, updatedSkripsi] = await Skripsi.update(skripsiData, { where: { id: id } });
+            if (updatedRowsCount === 0) {
+                return { success: false, result: 'Skripsi not found or no changes applied' };
+            }
+            return { success: true, result: updatedSkripsi };
+        } catch (error) {
+            return { success: false, result: error.message };
+        }
+    },
+
+    deleteSkripsiById: async (id) => {
+        try {
+            const deletedRowCount = await Skripsi.destroy({ where: { id: id } });
+            if (deletedRowCount === 0) {
+                return { success: false, result: 'Skripsi not found' };
+            }
+            return { success: true, result: 'Skripsi deleted successfully' };
+        } catch (error) {
+            return { success: false, result: error.message };
+        }
+    },
+
+    getAllSkripsi: async () => {
+        try {
+            const allSkripsi = await Skripsi.findAll();
+            return { success: true, result: allSkripsi };
+        } catch (error) {
+            return { success: false, result: error.message };
+        }
     }
-  });
-}
-
-
-/**
- * Delete a Skripsi by ID
- * Deletes a single Skripsi by ID
- *
- * id_skripsi  ID of Skripsi to retrieve
- * no response value expected for this operation
- **/
-exports.delete_skripsi = function(id_skripsi) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
-
-/**
- * Get All Skripsi
- * Retrieves all Skripsi's data
- *
- * no response value expected for this operation
- **/
-exports.get_all_skripsi = function() {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
-
-/**
- * Get a Skripsi by ID
- * Retrieves a single Skripsi data by ID
- *
- * id_skripsi  ID of Skripsi to retrieve
- * returns Skripsi
- **/
-exports.get_skripsi = function(id_skripsi) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "status_skripsi" : "",
-  "id_dosen" : "",
-  "id_skripsi" : "",
-  "judul_skripsi" : "",
-  "id_mahasiswa" : ""
 };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
-
-/**
- * Update a Skripsi by ID
- * Update a single Skripsi's data by ID
- *
- * body Skripsi 
- * id_skripsi  ID of Skripsi to retrieve
- * returns Skripsi
- **/
-exports.update_skripsi = function(body,id_skripsi) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "status_skripsi" : "",
-  "id_dosen" : "",
-  "id_skripsi" : "",
-  "judul_skripsi" : "",
-  "id_mahasiswa" : ""
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-

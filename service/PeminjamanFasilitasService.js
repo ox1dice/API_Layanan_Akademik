@@ -1,84 +1,57 @@
-'use strict';
+const PeminjamanFasilitas = require('../models/PeminjamanFasilitasModel');
 
+module.exports = {
+    createPeminjamanFasilitas: async (peminjamanData) => {
+        try {
+            const createdPeminjaman = await PeminjamanFasilitas.create(peminjamanData);
+            return { success: true, result: createdPeminjaman };
+        } catch (error) {
+            return { success: false, result: error.message };
+        }
+    },
 
-/**
- * Create a new Peminjaman Fasilitas
- * Creates a new Peminjaman Fasilitas data
- *
- * body PeminjamanFasilitas 
- * no response value expected for this operation
- **/
-exports.add_peminjaman_fasilitas = function(body) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
+    findPeminjamanFasilitasById: async (id) => {
+        try {
+            const foundPeminjaman = await PeminjamanFasilitas.findByPk(id);
+            if (!foundPeminjaman) {
+                return { success: false, result: 'Peminjaman Fasilitas not found' };
+            }
+            return { success: true, result: foundPeminjaman };
+        } catch (error) {
+            return { success: false, result: error.message };
+        }
+    },
 
+    updatePeminjamanFasilitasById: async (id, peminjamanData) => {
+        try {
+            const [updatedRowsCount, updatedPeminjaman] = await PeminjamanFasilitas.update(peminjamanData, { where: { id: id } });
+            if (updatedRowsCount === 0) {
+                return { success: false, result: 'Peminjaman Fasilitas not found or no changes applied' };
+            }
+            return { success: true, result: updatedPeminjaman };
+        } catch (error) {
+            return { success: false, result: error.message };
+        }
+    },
 
-/**
- * Get All Peminjaman Fasilitas
- * Retrieves all Peminjaman Fasilitas's data
- *
- * no response value expected for this operation
- **/
-exports.get_all_peminjaman_fasilitas = function() {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
+    deletePeminjamanFasilitasById: async (id) => {
+        try {
+            const deletedRowCount = await PeminjamanFasilitas.destroy({ where: { id: id } });
+            if (deletedRowCount === 0) {
+                return { success: false, result: 'Peminjaman Fasilitas not found' };
+            }
+            return { success: true, result: 'Peminjaman Fasilitas deleted successfully' };
+        } catch (error) {
+            return { success: false, result: error.message };
+        }
+    },
 
-
-/**
- * Get a Peminjaman Fasilitas by ID
- * Retrieves a single Peminjaman Fasilitas data by ID
- *
- * id_peminjaman  ID of Peminjaman Fasilitas to retrieve
- * returns PeminjamanFasilitas
- **/
-exports.get_peminjaman_fasilitas = function(id_peminjaman) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "id_peminjaman" : "",
-  "id_fasilitas" : "",
-  "id_mahasiswa" : "",
-  "status_peminjaman" : "",
-  "tanggal_pengembalian" : "",
-  "tanggal_peminjaman" : ""
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    getAllPeminjamanFasilitas: async () => {
+        try {
+            const allPeminjaman = await PeminjamanFasilitas.findAll();
+            return { success: true, result: allPeminjaman };
+        } catch (error) {
+            return { success: false, result: error.message };
+        }
     }
-  });
-}
-
-
-/**
- * Update a Peminjaman Fasilitas by ID
- * Update a single Peminjaman Fasilitas's data by ID
- *
- * body PeminjamanFasilitas 
- * id_peminjaman  ID of Peminjaman Fasilitas to update
- * returns PeminjamanFasilitas
- **/
-exports.update_peminjaman_fasilitas = function(body,id_peminjaman) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "id_peminjaman" : "",
-  "id_fasilitas" : "",
-  "id_mahasiswa" : "",
-  "status_peminjaman" : "",
-  "tanggal_pengembalian" : "",
-  "tanggal_peminjaman" : ""
 };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
