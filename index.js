@@ -33,6 +33,15 @@ require('dotenv').config();
 const app = express();
 
 // Database
+
+sequelize.sync({ force: true })
+  .then(() => {
+    console.log('Tabel berhasil dibuat.');
+  })
+  .catch((err) => {
+    console.error('Gagal membuat tabel:', err);
+  });
+
 sequelize.authenticate().then(() => {
     console.log('Connected to the database');  
 }).catch(err => {
