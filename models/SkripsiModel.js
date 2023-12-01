@@ -11,6 +11,7 @@ const Skripsi = sequelize.define('skripsi', {
     id_mahasiswa: { type: DataTypes.INTEGER }
 }, {
     tableName: 'skripsi',
+    timestamps: false,
 });
 
 module.exports = Skripsi;

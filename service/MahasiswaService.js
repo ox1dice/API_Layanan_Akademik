@@ -1,114 +1,66 @@
-'use strict';
+const Mahasiswa = require('../models/MahasiswaModel');
 
-
-/**
- * Create a new Mahasiswa
- * Creates a new Mahasiswa data
- *
- * body Mahasiswa 
- * returns Mahasiswa
- **/
-exports.add_mahasiswa = function(body) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "fakultas" : "",
-  "nim" : "",
-  "nama_mahasiswa" : "",
-  "angkatan" : "",
-  "jurusan" : "",
-  "id_mahasiswa" : "",
-  "email" : ""
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+module.exports = {
+  create: async (data) => {
+    try {
+        let mahasiswa = new Mahasiswa(data);
+        let result = await mahasiswa.save();
+        return { success: true, result: result };
+    } catch (err) {
+        return { success: false, result: err };
     }
-  });
-}
+},
+  
+  getAll: async () => {
+      try {
+          let mahasiswa = await Mahasiswa.findAll();
+          return { success: true, result: mahasiswa };
+      } catch (err) {
+          return { success: false, result: err };
+      }
+  },
 
+  deleteById: async (id) => {
+    try {
+      const deletedmahasiswa = await Mahasiswa.destroy({
+        where: { id_mahasiswa: id }
+      });
 
-/**
- * Delete Mahasiswa by ID
- * Deletes a single Mahasiswa by ID
- *
- * id_mahasiswa  Mahasiswa's ID to delete
- * no response value expected for this operation
- **/
-exports.delete_mahasiswa = function(id_mahasiswa) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
-
-/**
- * Get All Mahasiswa
- * Retrieves all Mahasiswa's data
- *
- * no response value expected for this operation
- **/
-exports.get_all_mahasiswa = function() {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
-
-/**
- * Get Mahasiswa by ID
- * Retrieves a single Mahasiswa data by ID
- *
- * id_mahasiswa  ID of Mahasiswa to retrieve
- * returns Mahasiswa
- **/
-exports.get_mahasiswa = function(id_mahasiswa) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "fakultas" : "",
-  "nim" : "",
-  "nama_mahasiswa" : "",
-  "angkatan" : "",
-  "jurusan" : "",
-  "id_mahasiswa" : "",
-  "email" : ""
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+      if (deletedmahasiswa > 0) {
+        return { success: true, result: 'mahasiswa deleted successfully' };
+      } else {
+        return { success: false, result: 'mahasiswa not found' };
+      }
+    } catch (err) {
+      return { success: false, result: err.message };
     }
-  });
-}
+  },
 
+    getById: async (id) => {
+      try {
+          let mahasiswa = await Mahasiswa.findOne({
+              where: { id_mahasiswa: id }
+          });
 
-/**
- * Update Mahasiswa by ID
- * Update a single Mahasiswa's data by ID
- *
- * body Mahasiswa 
- * id_mahasiswa  Mahasiswa's ID to update
- * returns Mahasiswa
- **/
-exports.update_mahasiswa = function(body,id_mahasiswa) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "fakultas" : "",
-  "nim" : "",
-  "nama_mahasiswa" : "",
-  "angkatan" : "",
-  "jurusan" : "",
-  "id_mahasiswa" : "",
-  "email" : ""
+          if (mahasiswa) {
+              return { success: true, result: mahasiswa };
+          } else {
+              return { success: false, result: 'mahasiswa not found' };
+          }
+      } catch (err) {
+          return { success: false, result: err };
+      }
+  },
+
+    updateById: async (id, data) => {
+      try {
+          let mahasiswa = await Mahasiswa.update(data, {
+              where: { id_mahasiswa: id }
+          });
+          return { success: true, result: mahasiswa };
+      } catch (err) {
+          return { success: false, result: err };
+      }
+  }
+
 };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-

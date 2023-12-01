@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-const PengajuanSkripsi = sequelize.define('PengajuanSkripsi', {
+const PengajuanSkripsi = sequelize.define('pengajuan_skripsi', {
     id_pengajuan: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -17,7 +17,8 @@ const PengajuanSkripsi = sequelize.define('PengajuanSkripsi', {
         allowNull: false
     }
 }, {
-    tableName: 'PengajuanSkripsi',
+    tableName: 'pengajuan_skripsi',
+    timestamps: false,
 });
 
 module.exports = PengajuanSkripsi;

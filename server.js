@@ -23,8 +23,10 @@ app.use(cors());
 app.use(compression());  // reduce file size before sending to web browser to ereduce latency
 
 // Routes
-const userRoutes = require('./routes/UserRoutes');
-app.use(userRoutes);
+const dosenRoutes = require('./routes/DosenRoutes');
+app.use(dosenRoutes);
+// app.use(parkirRoutes);
+// app.use(reservasiRoutes);
 
 // Set up swagger ui
 const options = {
@@ -40,11 +42,25 @@ const options = {
       },
       contact: {
         name: "Charlie",
-        url: "https://github.com/yfchiuaa",
+        url: "a",
       },
     },
   },
-  apis: ['./models/UserModel.js', './routes/UserRoutes.js'],
+  apis: [
+    './models/DosemModel.js',
+    './models/FasilitasModel.js',
+    './models/MahasiswaModel.js',
+    './models/PeminjamanFasilitasModel.js',
+    './models/PengajuanSkripsiModel.js',
+    './models/SkripsiModel.js',
+    './routes/DosenRoutes.js',
+    './routes/FasilitasRoutes.js',
+    './routes/MahasiswaRoutes.js',
+    './routes/PeminjamanFasilitasRoutes.js',
+    './routes/PengajuanSkripsiRoutes.js',
+    './routes/SkripsiRoutes.js',
+        
+        ],
 };
 const specs = swaggerJsDoc(options);
 const swaggerRouter = express.Router();

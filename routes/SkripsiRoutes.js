@@ -1,55 +1,84 @@
 const express = require('express');
 const router = express.Router();
-const SkripsiService = require('../services/SkripsiService');
+const SkripsiService = require('../service/SkripsiService');
 
-/**
- * POST /api/skripsi/create
- * Create a new Skripsi
- */
-router.post('/api/skripsi/create', async (req, res, next) => {
-    const skripsiData = req.body;
-    const result = await SkripsiService.add_skripsi(skripsiData);
-    return res.json(result);
-});
+// Create a new Skripsi
+router.post('/skripsi', async (req, res) => {
+    const data = req.body;
+  
+    try {
+        const { success, result } = await SkripsiService.create(data);
+  
+        if (success) {
+            return res.status(201).json({ success, result });
+        } else {
+            return res.status(400).json({ success, result });
+        }
+    } catch (error) {
+        console.error('Error during Skripsi creation:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
-/**
- * DELETE /api/skripsi/delete/:id_skripsi
- * Delete a Skripsi by ID
- */
-router.delete('/api/skripsi/delete/:id_skripsi', async (req, res, next) => {
-    const skripsiId = req.params.id_skripsi;
-    const result = await SkripsiService.delete_skripsi(skripsiId);
-    return res.json(result);
-});
+// Get All Skripsi
+router.get('/skripsi', async (req, res) => {
+    try {
+      const allSkripsi = await SkripsiService.getAll();
+      res.json(allSkripsi);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
 
-/**
- * GET /api/skripsi/all
- * Get all Skripsi
- */
-router.get('/api/skripsi/all', async (req, res, next) => {
-    const result = await SkripsiService.get_all_skripsi();
-    return res.json(result);
-});
+// Get Skripsi by ID
+router.get('/skripsi/:id', async (req, res) => {
+    const id = req.params.id;
+  
+    try {
+      const { success, result } = await SkripsiService.getById(id);
+  
+      if (success) {
+        return res.status(200).json({ success, result });
+      } else {
+        return res.status(404).json({ success, result });
+      }
+    } catch (error) {
+      console.error('Error during Get Skripsi :', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
-/**
- * GET /api/skripsi/:id_skripsi
- * Get a Skripsi by ID
- */
-router.get('/api/skripsi/:id_skripsi', async (req, res, next) => {
-    const skripsiId = req.params.id_skripsi;
-    const result = await SkripsiService.get_skripsi(skripsiId);
-    return res.json(result);
-});
+// Update Skripsi by ID
+router.put('/skripsi/:id', async (req, res) => {
+    const id = req.params.id;
+    const data = req.body;
+    
+      const { success, result } = await SkripsiService.updateById(id, data);
+      
+      if (success) {
+        return res.status(200).json({ success, result });
+      } else {
+        return res.status(404).json({ success, result });
+      }
+     
+  });
 
-/**
- * PUT /api/skripsi/update/:id_skripsi
- * Update a Skripsi by ID
- */
-router.put('/api/skripsi/update/:id_skripsi', async (req, res, next) => {
-    const skripsiId = req.params.id_skripsi;
-    const skripsiData = req.body;
-    const result = await SkripsiService.update_skripsi(skripsiData, skripsiId);
-    return res.json(result);
-});
+// Delete Skripsi by ID
+router.delete('/skripsi/:id', async (req, res) => {
+    const id = req.params.id;
+  
+    try {
+      const { success, result } = await SkripsiService.deleteById(id);
+  
+      if (success) {
+        return res.status(200).json({ success, result });
+      } else {
+        return res.status(404).json({ success, result });
+      }
+    } catch (error) {
+      console.error('Error during Skripsi deletion:', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
 module.exports = router;

@@ -1,45 +1,84 @@
 const express = require('express');
 const router = express.Router();
-const PeminjamanFasilitasService = require('../services/PeminjamanFasilitasService');
+const PeminjamanFasilitasService = require('../service/PeminjamanFasilitasService');
 
-router.post('/api/peminjaman_fasilitas/add', async (req, res, next) => {
+// Create a new Peminjaman Fasilitas
+router.post('/peminjaman_fasilitas', async (req, res) => {
     const data = req.body;
+  
     try {
-        await PeminjamanFasilitasService.add_peminjaman_fasilitas(data);
-        res.sendStatus(201); // Created
+        const { success, result } = await PeminjamanFasilitasService.create(data);
+  
+        if (success) {
+            return res.status(201).json({ success, result });
+        } else {
+            return res.status(400).json({ success, result });
+        }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Error during Peminjaman Fasilitas creation:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
-});
+  });
 
-router.get('/api/peminjaman_fasilitas/all', async (req, res, next) => {
+// Get All Peminjaman Fasilitas
+router.get('/peminjaman_fasilitas', async (req, res) => {
     try {
-        const result = await PeminjamanFasilitasService.get_all_peminjaman_fasilitas();
-        res.json(result);
+      const allPeminjamanFasilitas = await PeminjamanFasilitasService.getAll();
+      res.json(allPeminjamanFasilitas);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+      res.status(500).json({ message: error.message });
     }
-});
+  });
 
-router.get('/api/peminjaman_fasilitas/:id', async (req, res, next) => {
+// Get Peminjaman Fasilitas by ID
+router.get('/peminjaman_fasilitas/:id', async (req, res) => {
     const id = req.params.id;
+  
     try {
-        const result = await PeminjamanFasilitasService.get_peminjaman_fasilitas(id);
-        res.json(result);
+      const { success, result } = await PeminjamanFasilitasService.getById(id);
+  
+      if (success) {
+        return res.status(200).json({ success, result });
+      } else {
+        return res.status(404).json({ success, result });
+      }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+      console.error('Error during Get Peminjaman Fasilitas :', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
-});
+  });
 
-router.put('/api/peminjaman_fasilitas/:id/update', async (req, res, next) => {
+// Update Peminjaman Fasilitas by ID
+router.put('/peminjaman_fasilitas/:id', async (req, res) => {
     const id = req.params.id;
     const data = req.body;
+    
+      const { success, result } = await PeminjamanFasilitasService.updateById(id, data);
+      
+      if (success) {
+        return res.status(200).json({ success, result });
+      } else {
+        return res.status(404).json({ success, result });
+      }
+     
+  });
+
+// Delete Peminjaman Fasilitas by ID
+router.delete('/peminjaman_fasilitas/:id', async (req, res) => {
+    const id = req.params.id;
+  
     try {
-        await PeminjamanFasilitasService.update_peminjaman_fasilitas(data, id);
-        res.sendStatus(204); // No Content
+      const { success, result } = await PeminjamanFasilitasService.deleteById(id);
+  
+      if (success) {
+        return res.status(200).json({ success, result });
+      } else {
+        return res.status(404).json({ success, result });
+      }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+      console.error('Error during Peminjaman Fasilitas deletion:', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
-});
+  });
 
 module.exports = router;

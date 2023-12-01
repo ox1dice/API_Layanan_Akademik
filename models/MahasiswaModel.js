@@ -12,6 +12,7 @@ const Mahasiswa = sequelize.define('Mahasiswa', {
 }, {
     tableName: 'mahasiswa',
     comment: 'Table for Mahasiswa data',
+    timestamps: false,
 });
 
 module.exports = Mahasiswa;

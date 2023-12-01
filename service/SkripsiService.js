@@ -1,108 +1,66 @@
-'use strict';
+const Skripsi = require('../models/SkripsiModel');
 
-
-/**
- * Create a new Skripsi
- * Creates a new Skripsi data
- *
- * body Skripsi 
- * returns Skripsi
- **/
-exports.add_skripsi = function(body) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "status_skripsi" : "",
-  "id_dosen" : "",
-  "id_skripsi" : "",
-  "judul_skripsi" : "",
-  "id_mahasiswa" : ""
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+module.exports = {
+  create: async (data) => {
+    try {
+        let skripsi = new Skripsi(data);
+        let result = await skripsi.save();
+        return { success: true, result: result };
+    } catch (err) {
+        return { success: false, result: err };
     }
-  });
-}
+},
+  
+  getAll: async () => {
+      try {
+          let skripsi = await Skripsi.findAll();
+          return { success: true, result: skripsi };
+      } catch (err) {
+          return { success: false, result: err };
+      }
+  },
 
+  deleteById: async (id) => {
+    try {
+      const deletedskripsi = await Skripsi.destroy({
+        where: { id_skripsi: id }
+      });
 
-/**
- * Delete a Skripsi by ID
- * Deletes a single Skripsi by ID
- *
- * id_skripsi  ID of Skripsi to retrieve
- * no response value expected for this operation
- **/
-exports.delete_skripsi = function(id_skripsi) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
-
-/**
- * Get All Skripsi
- * Retrieves all Skripsi's data
- *
- * no response value expected for this operation
- **/
-exports.get_all_skripsi = function() {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
-
-/**
- * Get a Skripsi by ID
- * Retrieves a single Skripsi data by ID
- *
- * id_skripsi  ID of Skripsi to retrieve
- * returns Skripsi
- **/
-exports.get_skripsi = function(id_skripsi) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "status_skripsi" : "",
-  "id_dosen" : "",
-  "id_skripsi" : "",
-  "judul_skripsi" : "",
-  "id_mahasiswa" : ""
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+      if (deletedskripsi > 0) {
+        return { success: true, result: 'skripsi deleted successfully' };
+      } else {
+        return { success: false, result: 'skripsi not found' };
+      }
+    } catch (err) {
+      return { success: false, result: err.message };
     }
-  });
-}
+  },
 
+    getById: async (id) => {
+      try {
+          let skripsi = await Skripsi.findOne({
+              where: { id_skripsi: id }
+          });
 
-/**
- * Update a Skripsi by ID
- * Update a single Skripsi's data by ID
- *
- * body Skripsi 
- * id_skripsi  ID of Skripsi to retrieve
- * returns Skripsi
- **/
-exports.update_skripsi = function(body,id_skripsi) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "status_skripsi" : "",
-  "id_dosen" : "",
-  "id_skripsi" : "",
-  "judul_skripsi" : "",
-  "id_mahasiswa" : ""
+          if (skripsi) {
+              return { success: true, result: Skripsi };
+          } else {
+              return { success: false, result: 'skripsi not found' };
+          }
+      } catch (err) {
+          return { success: false, result: err };
+      }
+  },
+
+    updateById: async (id, data) => {
+      try {
+          let skripsi = await Skripsi.update(data, {
+              where: { id_skripsi: id }
+          });
+          return { success: true, result: skripsi };
+      } catch (err) {
+          return { success: false, result: err };
+      }
+  }
+
 };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-

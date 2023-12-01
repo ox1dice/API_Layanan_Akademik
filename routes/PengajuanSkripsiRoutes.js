@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const MahasiswaService = require('../service/MahasiswaService');
+const PengajuanSkripsiService = require('../service/PengajuanSkripsiService');
 
-// Create a new Mahasiswa
-router.post('/mahasiswa', async (req, res) => {
+// Create a new Pengajuan Skripsi
+router.post('/pengajuan_skripsi', async (req, res) => {
     const data = req.body;
   
     try {
-        const { success, result } = await MahasiswaService.create(data);
+        const { success, result } = await PengajuanSkripsiService.create(data);
   
         if (success) {
             return res.status(201).json({ success, result });
@@ -15,27 +15,27 @@ router.post('/mahasiswa', async (req, res) => {
             return res.status(400).json({ success, result });
         }
     } catch (error) {
-        console.error('Error during Mahasiswa creation:', error);
+        console.error('Error during Pengajuan Skripsi creation:', error);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
   });
 
-// Get All Mahasiswa
-router.get('/mahasiswa', async (req, res) => {
+// Get All Pengajuan Skripsi
+router.get('/pengajuan_skripsi', async (req, res) => {
     try {
-      const allMahasiswa = await MahasiswaService.getAll();
-      res.json(allMahasiswa);
+      const allPengajuanSkripsi = await PengajuanSkripsiService.getAll();
+      res.json(allPengajuanSkripsi);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   });
 
-// Get Mahasiswa by ID
-router.get('/mahasiswa/:id', async (req, res) => {
+// Get Pengajuan Skripsi by ID
+router.get('/pengajuan_skripsi/:id', async (req, res) => {
     const id = req.params.id;
   
     try {
-      const { success, result } = await MahasiswaService.getById(id);
+      const { success, result } = await PengajuanSkripsiService.getById(id);
   
       if (success) {
         return res.status(200).json({ success, result });
@@ -43,17 +43,17 @@ router.get('/mahasiswa/:id', async (req, res) => {
         return res.status(404).json({ success, result });
       }
     } catch (error) {
-      console.error('Error during Get Mahasiswa :', error);
+      console.error('Error during Get Pengajuan Skripsi :', error);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   });
 
-// Update Mahasiswa by ID
-router.put('/mahasiswa/:id', async (req, res) => {
+// Update Pengajuan Skripsi by ID
+router.put('/pengajuan_skripsi/:id', async (req, res) => {
     const id = req.params.id;
     const data = req.body;
     
-      const { success, result } = await MahasiswaService.updateById(id, data);
+      const { success, result } = await PengajuanSkripsiService.updateById(id, data);
       
       if (success) {
         return res.status(200).json({ success, result });
@@ -63,12 +63,12 @@ router.put('/mahasiswa/:id', async (req, res) => {
      
   });
 
-// Delete Mahasiswa by ID
-router.delete('/mahasiswa/:id', async (req, res) => {
+// Delete Pengajuan Skripsi by ID
+router.delete('/pengajuan_skripsi/:id', async (req, res) => {
     const id = req.params.id;
   
     try {
-      const { success, result } = await MahasiswaService.deleteById(id);
+      const { success, result } = await PengajuanSkripsiService.deleteById(id);
   
       if (success) {
         return res.status(200).json({ success, result });
@@ -76,9 +76,10 @@ router.delete('/mahasiswa/:id', async (req, res) => {
         return res.status(404).json({ success, result });
       }
     } catch (error) {
-      console.error('Error during Mahasiswa deletion:', error);
+      console.error('Error during Pengajuan Skripsi deletion:', error);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
 
 module.exports = router;

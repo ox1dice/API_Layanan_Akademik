@@ -1,78 +1,66 @@
-'use strict';
+const Pengajuan = require('../models/PengajuanSkripsiModel');
 
-
-/**
- * Create a new Pengajuan Skripsi
- * Creates a new Pengajuan Skripsi data
- *
- * body PengajuanSkripsi 
- * no response value expected for this operation
- **/
-exports.add_pengajuan_skripsi = function(body) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
-
-/**
- * Get All Pengajuan Skripsi
- * Retrieves all Pengajuan Skripsi's data
- *
- * no response value expected for this operation
- **/
-exports.get_all_pengajuan_skripsi = function() {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
-
-/**
- * Get a Pengajuan Skripsi by ID
- * Retrieves a single Pengajuan Skripsi data by ID
- *
- * id_pengajuan  ID of Pengajuan Skripsi to retrieve
- * returns PengajuanSkripsi
- **/
-exports.get_pengajuan_skripsi = function(id_pengajuan) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "id_pengajuan" : "",
-  "id_skripsi" : "",
-  "status_pengajuan" : ""
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+module.exports = {
+  create: async (data) => {
+    try {
+        let pengajuan = new Pengajuan(data);
+        let result = await pengajuan.save();
+        return { success: true, result: result };
+    } catch (err) {
+        return { success: false, result: err };
     }
-  });
-}
+},
+  
+  getAll: async () => {
+      try {
+          let pengajuan = await Pengajuan.findAll();
+          return { success: true, result: pengajuan };
+      } catch (err) {
+          return { success: false, result: err };
+      }
+  },
 
+  deleteById: async (id) => {
+    try {
+      const deletedpengajuan = await Pengajuan.destroy({
+        where: { id_pengajuan: id }
+      });
 
-/**
- * Update a Pengajuan Skripsi by ID
- * Update a single Pengajuan Skripsi's data by ID
- *
- * body PengajuanSkripsi 
- * id_pengajuan  ID of Pengajuan Skripsi to update
- * returns PengajuanSkripsi
- **/
-exports.update_pengajuan_skripsi = function(body,id_pengajuan) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "id_pengajuan" : "",
-  "id_skripsi" : "",
-  "status_pengajuan" : ""
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+      if (deletedpengajuan > 0) {
+        return { success: true, result: 'pengajuan deleted successfully' };
+      } else {
+        return { success: false, result: 'pengajuan not found' };
+      }
+    } catch (err) {
+      return { success: false, result: err.message };
     }
-  });
-}
+  },
 
+    getById: async (id) => {
+      try {
+          let pengajuan = await Pengajuan.findOne({
+              where: { id_pengajuan: id }
+          });
+
+          if (pengajuan) {
+              return { success: true, result: pengajuan };
+          } else {
+              return { success: false, result: 'pengajuan not found' };
+          }
+      } catch (err) {
+          return { success: false, result: err };
+      }
+  },
+
+    updateById: async (id, data) => {
+      try {
+          let pengajuan = await Pengajuan.update(data, {
+              where: { id_pengajuan: id }
+          });
+          return { success: true, result: pengajuan };
+      } catch (err) {
+          return { success: false, result: err };
+      }
+  }
+
+};

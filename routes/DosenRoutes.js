@@ -4,57 +4,97 @@ const router = express.Router();
 // Controllers for Dosen operations (add, delete, get all, get by ID, update)
 const DosenController = require('../service/DosenService');
 
-// Route to create a new Dosen
-router.post('/api/dosen', async (req, res) => {
-  try {
-    const newDosen = await DosenController.add_dosen(req.body);
-    res.json(newDosen);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+const DosenService = require('../service/DosenService');
 
-// Route to delete a Dosen by ID
-router.delete('/api/dosen/:id', async (req, res) => {
-  const id_dosen = req.params.id;
+// Route to create a new Dosen
+router.post('/dosen', async (req, res) => {
+  const data = req.body;
+
   try {
-    await DosenController.delete_dosen(id_dosen);
-    res.status(204).end(); // No content response for successful deletion
+      const { success, result } = await DosenService.create(data);
+
+      if (success) {
+          return res.status(201).json({ success, result });
+      } else {
+          return res.status(400).json({ success, result });
+      }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+      console.error('Error during Dosen creation:', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
 // Route to get all Dosen
-router.get('/api/dosen', async (req, res) => {
+router.get('/dosen', async (req, res) => {
   try {
-    const allDosen = await DosenController.get_all_dosen();
+    const allDosen = await DosenService.getAll();
     res.json(allDosen);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// Route to get a Dosen by ID
-router.get('/api/dosen/:id', async (req, res) => {
-  const id_dosen = req.params.id;
+// Route to delete a Dosen by ID
+router.delete('/dosen/:id', async (req, res) => {
+  const id = req.params.id;
+
   try {
-    const dosen = await DosenController.get_dosen(id_dosen);
-    res.json(dosen);
+    const { success, result } = await DosenService.deleteById(id);
+
+    if (success) {
+      return res.status(200).json({ success, result });
+    } else {
+      return res.status(404).json({ success, result });
+    }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error during Dosen deletion:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-// Route to update a Dosen by ID
-router.put('/api/dosen/:id', async (req, res) => {
-  const id_dosen = req.params.id;
+
+
+// Route to get a Dosen by ID
+router.get('/dosen/:id', async (req, res) => {
+  const id = req.params.id;
+
   try {
-    const updatedDosen = await DosenController.update_dosen(req.body, id_dosen);
-    res.json(updatedDosen);
+    const { success, result } = await DosenService.getById(id);
+
+    if (success) {
+      return res.status(200).json({ success, result });
+    } else {
+      return res.status(404).json({ success, result });
+    }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error during Get Dosen :', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
+});
+
+
+
+// Route to update a Dosen by ID
+
+// const updateData = {
+//   fakultas: '',
+//   nama_dosen: '',
+//   nidn: '',
+//   email: '',
+// };
+
+router.put('/dosen/:id', async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  
+    const { success, result } = await DosenService.updateById(id, data);
+    
+    if (success) {
+      return res.status(200).json({ success, result });
+    } else {
+      return res.status(404).json({ success, result });
+    }
+   
 });
 
 module.exports = router;

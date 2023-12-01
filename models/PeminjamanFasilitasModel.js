@@ -12,6 +12,7 @@ const PeminjamanFasilitas = sequelize.define('peminjaman_fasilitas', {
     comment: "This is the table for peminjaman fasilitas",
     freezeTableName: true,
     tableName: 'peminjaman_fasilitas',
+    timestamps: false,
 });
 
 module.exports = PeminjamanFasilitas;

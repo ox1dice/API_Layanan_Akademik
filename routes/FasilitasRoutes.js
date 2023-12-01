@@ -1,62 +1,97 @@
 const express = require('express');
 const router = express.Router();
-const FasilitasService = require('../services/FasilitasService');
+const FasilitasService = require('../service/FasilitasService');
 
-/**
- * @swagger
- * /api/fasilitas:
- *   post:
- *     summary: Create Fasilitas
- *     description: Create a new Fasilitas data
- *     tags: [Fasilitas]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Fasilitas'
- *     responses:
- *       "200":
- *         description: A response body
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Fasilitas'
- */
-router.post('/api/fasilitas', async (req, res, next) => {
+
+// Route to create a new Fasilitas
+router.post('/fasilitas', async (req, res) => {
     const data = req.body;
-    const response = await FasilitasService.add_fasilitas(data);
-    return res.json(response);
-});
-
-/**
- * @swagger
- * /api/fasilitas/{id}:
- *   get:
- *     summary: Get Fasilitas by ID
- *     description: Retrieve a single Fasilitas data by ID
- *     tags: [Fasilitas]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID of the Fasilitas to retrieve
- *     responses:
- *       "200":
- *         description: A response body
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Fasilitas'
- */
-router.get('/api/fasilitas/:id', async (req, res, next) => {
+  
+    try {
+        const { success, result } = await FasilitasService.create(data);
+  
+        if (success) {
+            return res.status(201).json({ success, result });
+        } else {
+            return res.status(400).json({ success, result });
+        }
+    } catch (error) {
+        console.error('Error during Fasilitas creation:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  // Route to get all Fasilitas
+  router.get('/fasilitas', async (req, res) => {
+    try {
+      const allFasilitas = await FasilitasService.getAll();
+      res.json(allFasilitas);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+  
+  // Route to delete a Fasilitas by ID
+  router.delete('/fasilitas/:id', async (req, res) => {
     const id = req.params.id;
-    const response = await FasilitasService.get_fasilitas(id);
-    return res.json(response);
-});
-
-// Implement other routes similarly for update and delete
+  
+    try {
+      const { success, result } = await FasilitasService.deleteById(id);
+  
+      if (success) {
+        return res.status(200).json({ success, result });
+      } else {
+        return res.status(404).json({ success, result });
+      }
+    } catch (error) {
+      console.error('Error during Fasilitas deletion:', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  
+  
+  // Route to get a Fasilitas by ID
+  router.get('/fasilitas/:id', async (req, res) => {
+    const id = req.params.id;
+  
+    try {
+      const { success, result } = await FasilitasService.getById(id);
+  
+      if (success) {
+        return res.status(200).json({ success, result });
+      } else {
+        return res.status(404).json({ success, result });
+      }
+    } catch (error) {
+      console.error('Error during Get Fasilitas :', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  
+  
+  // Route to update a Fasilitas by ID
+  
+  // const updateData = {
+  //   fakultas: '',
+  //   nama_Fasilitas: '',
+  //   nidn: '',
+  //   email: '',
+  // };
+  
+  router.put('/fasilitas/:id', async (req, res) => {
+    const id = req.params.id;
+    const data = req.body;
+    
+      const { success, result } = await FasilitasService.updateById(id, data);
+      
+      if (success) {
+        return res.status(200).json({ success, result });
+      } else {
+        return res.status(404).json({ success, result });
+      }
+     
+  });
 
 module.exports = router;
