@@ -34,7 +34,7 @@ const app = express();
 
 // Database
 
-sequelize.sync({ force: true })
+sequelize.sync({ force: false })
   .then(() => {
     console.log('Tabel berhasil dibuat.');
   })
