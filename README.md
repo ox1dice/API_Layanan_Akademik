@@ -12,6 +12,7 @@ Install seluruh package yang ada pada package.json dengan perintah sebagai berik
 
 ```s
 npm install
+```
 
 ### Running the server
 To run the server, run:
