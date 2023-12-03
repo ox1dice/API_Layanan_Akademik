@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// Controllers for Dosen operations (add, delete, get all, get by ID, update)
-const DosenController = require('../service/DosenService');
+
 
 const DosenService = require('../service/DosenService');
 

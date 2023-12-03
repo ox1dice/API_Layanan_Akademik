@@ -73,12 +73,6 @@ router.post('/fasilitas', async (req, res) => {
   
   // Route to update a Fasilitas by ID
   
-  // const updateData = {
-  //   fakultas: '',
-  //   nama_Fasilitas: '',
-  //   nidn: '',
-  //   email: '',
-  // };
   
   router.put('/fasilitas/:id', async (req, res) => {
     const id = req.params.id;

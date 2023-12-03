@@ -1,26 +1,4 @@
-// 'use strict';
 
-// var path = require('path');
-// var http = require('http');
-
-// var oas3Tools = require('oas3-tools');
-// var serverPort = 8000;
-
-// // swaggerRouter configuration
-// var options = {
-//     routing: {
-//         controllers: path.join(__dirname, './controllers')
-//     },
-// };
-
-// var expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
-// var app = expressAppConfig.getApp();
-
-// // Initialize the Swagger middleware
-// http.createServer(app).listen(serverPort, function () {
-//     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
-//     console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
-// });
 
 const express = require('express');
 const cors = require('cors');
@@ -71,8 +49,7 @@ app.use(SkripsiRoutes);
 
 
 
-// app.use(parkirRoutes);
-// app.use(reservasiRoutes);
+
 
 // Set up swagger ui
 const options = {
@@ -128,8 +105,8 @@ module.exports = app;
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log('###############################');
+    
     console.log(`The server starts at ${PORT}`);
-    console.log('###############################');
+    
 });
 
