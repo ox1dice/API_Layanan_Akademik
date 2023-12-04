@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 info:
   title: "API Layanan Akademik"
   version: "1.0"
@@ -60,7 +60,7 @@ paths:
           description: Invalid input
       tags:
         - Mahasiswa
-  /mahasiswa/{id}:
+  /mahasiswa/{id_mahasiswa}:
     get:
       summary: Get Mahasiswa by ID
       description: Retrieves a single Mahasiswa data by ID
@@ -176,7 +176,7 @@ paths:
           description: Invalid input
       tags:
         - Dosen
-  /dosen/{id}:
+  /dosen/{id_dosen}:
     get:
       summary: Get Dosen by ID
       description: Retrieves a single Dosen data by ID
@@ -292,7 +292,7 @@ paths:
           description: Invalid input
       tags:
         - Skripsi
-  /skripsi/{id}:
+  /skripsi/{id_skripsi}:
     get:
       summary: Get a Skripsi by ID
       description: Retrieves a single Skripsi data by ID
@@ -408,7 +408,7 @@ paths:
           description: Invalid input
       tags:
         - Fasilitas
-  /fasilitas/{id}:
+  /fasilitas/{id_fasilitas}:
     get:
       summary: Get a Fasilitas by ID
       description: Retrieves a single Fasilitas data by ID
@@ -520,7 +520,7 @@ paths:
           description: Invalid input
       tags:
         - Peminjaman Fasilitas
-  /peminjaman_fasilitas/{id}:
+  /peminjaman_fasilitas/{id_peminjaman}:
     get:
       summary: Get a Peminjaman Fasilitas by ID
       description: Retrieves a single Peminjaman Fasilitas data by ID
@@ -611,7 +611,7 @@ paths:
           description: Invalid input
       tags:
         - Pengajuan Skripsi
-  /pengajuan_skripsi/{id}:
+  /pengajuan_skripsi/{id_pengajuan}:
     get:
       summary: Get a Pengajuan Skripsi by ID
       description: Retrieves a single Pengajuan Skripsi data by ID
