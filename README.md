@@ -13,6 +13,10 @@ Install seluruh package yang ada pada package.json dengan perintah sebagai berik
 ```s
 npm install
 ```
+#### Database
+Layanan Akademik ini dibuat menggunakan PostgreSQL Server, diproject ini menggunakan DBeaver sebagai Tools Database.
+
+[DBeaver](https://dbeaver.io/download/) | [PostgreSQL Server](https://www.postgresql.org/download/)
 
 ### Running the server
 To run the server, run:
@@ -20,11 +24,6 @@ To run the server, run:
 ```
 npm start
 ```
-
-#### Database
-Layanan Akademik ini dibuat menggunakan PostgreSQL Server, diproject ini menggunakan DBeaver sebagai Tools Database.
-
-[DBeaver](https://dbeaver.io/download/) | [PostgreSQL Server](https://www.postgresql.org/download/)
 
 To view the Swagger UI interface:
 
