@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./database');
@@ -11,7 +9,6 @@ require('dotenv').config();
 const app = express();
 
 // Database
-
 sequelize.sync({ force: false })
   .then(() => {
     console.log('Tabel berhasil dibuat.');
@@ -46,10 +43,6 @@ app.use(MahasiswaRoutes);
 app.use(PeminjamanFasilitasRoutes);
 app.use(PengajuanSkripsiRoutes);
 app.use(SkripsiRoutes);
-
-
-
-
 
 // Set up swagger ui
 const options = {
